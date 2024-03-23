@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var playerCard = "card2"
+    @State var cpuCard = "card3"
+    
+    @State var playerScore = 0
+    @State var cpuScore = 0
+    
     var body: some View {
         ZStack {
             Image("background-cloth")
@@ -19,13 +25,16 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("card2")
+                    Image(playerCard)
                     Spacer()
-                    Image("card3")
+                    Image(cpuCard)
                     Spacer()
                 }
                 Spacer()
-                Image("button")
+                Button {
+                    deal()
+                } label: { Image("button")
+                }
                 Spacer()
                 HStack {
                     Spacer()
@@ -33,7 +42,7 @@ struct ContentView: View {
                         Text("Player")
                             .font(.headline)
                             .padding(.bottom, 10)
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.largeTitle)
                     }
                     Spacer()
@@ -41,7 +50,7 @@ struct ContentView: View {
                         Text("CPU")
                             .font(.headline)
                             .padding(.bottom, 10)
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.largeTitle)
                     }
                     Spacer()
@@ -50,6 +59,20 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
+        }
+    }
+    func deal() {
+        var playerNum = Int.random(in:2...14)
+        var cpuNum = Int.random(in:2...14)
+        
+        playerCard = "card" + String(playerNum)
+        cpuCard = "card" + String(cpuNum)
+        
+        if(playerNum > cpuNum) {
+            playerScore += 1
+        }
+        else if(cpuNum > playerNum) {
+            cpuScore += 1
         }
     }
 }
